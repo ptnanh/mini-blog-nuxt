@@ -1,19 +1,43 @@
 :root {
     color-scheme: light dark;
 
-    --paper: #f3f6fa;
-    --sheet: #ffffff;
-    --ink: #17233b;
-    --ink-soft: #5a6882;
-    --rule: #d5dee9;
-    --margin: #8fb3f0;
-    --highlight: #ffe066;
-    --focus: #2f6bff;
+    /* nền và chữ */
+    --bg: #eaf4ff;
+    /* Mây */
+    --surface: #ffffff;
+    --ink: #2d2442;
+    --ink-soft: #675f85;
+    --line: #2d2442;
+    --dot: #cfe2f7;
 
-    /* màu đặt lên trên các nền ở trên */
-    --on-ink: #ffffff;
-    --ink-hover: #2a3b5c;
-    --on-highlight: #17233b;
+    /* 4 vị pastel, mỗi màu một vai trò */
+    --pink: #ffb0cf;
+    /* Dâu: hành động */
+    --yellow: #ffec8f;
+    /* Chuối: con số, nhãn */
+    --mint: #a9eed2;
+    /* Bạc hà: đã xong */
+    --violet: #c4b5ff;
+    /* Việt quất: đang chọn */
+
+    /* chữ đặt trên các màu pastel: luôn là mực đậm */
+    --on-color: #2d2442;
+    --on-violet: #2d2442;
+
+    --focus: #5b3df5;
+    --border: 3px solid var(--line);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #1c1733;
+        --surface: #2b2447;
+        --ink: #f5f1ff;
+        --ink-soft: #bdb4e3;
+        --line: #0d0920;
+        --dot: #28214a;
+        --focus: #ffec8f;
+    }
 }
 
 *,
@@ -24,78 +48,163 @@
 
 body {
     margin: 0;
-    background: var(--paper);
+    min-height: 100vh;
+    background-color: var(--bg);
+    background-image: radial-gradient(var(--dot) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
     color: var(--ink);
-    font-family: 'Public Sans', system-ui, sans-serif;
+    font-family: 'Be Vietnam Pro', system-ui, sans-serif;
     line-height: 1.5;
 }
 
 button,
-input {
+input,
+textarea {
     font: inherit;
     color: inherit;
 }
 
 :focus-visible {
     outline: 3px solid var(--focus);
-    outline-offset: 2px;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --paper: #0e1524;
-        --sheet: #172036;
-        --ink: #e8edf7;
-        --ink-soft: #9aa7c0;
-        --rule: #2a3552;
-        --margin: #3f64a8;
-        --focus: #7aa2ff;
-
-        --on-ink: #0e1524;
-        --ink-hover: #cdd6ea;
-        /* --highlight và --on-highlight giữ nguyên: vệt dạ quang vàng, chữ tối */
-    }
+    outline-offset: 3px;
 }
 
 a {
-    color: var(--ink);
+    color: inherit;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+}
+
+h1,
+h2 {
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
 }
 
 h1 {
-    margin: 0;
-    font-family: 'Bricolage Grotesque', 'Public Sans', sans-serif;
-    font-size: 2rem;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    font-size: clamp(2rem, 7vw, 2.75rem);
 }
 
-/* "tờ giấy" dùng chung cho nhiều trang */
+/* thẻ lớn dùng chung cho mọi trang */
 .sheet {
-    --gutter: 3.5rem;
-    position: relative;
-    width: 100%;
-    background: var(--sheet);
-    border: 1px solid var(--rule);
-    border-radius: 6px;
-    padding: 2rem 1.5rem 1.5rem var(--gutter);
-}
-
-.sheet::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: calc(var(--gutter) - 1rem);
-    width: 2px;
-    background: var(--margin);
+    background: var(--surface);
+    border: var(--border);
+    border-radius: 20px;
+    box-shadow: 6px 6px 0 var(--line);
+    padding: 1.5rem;
 }
 
 .sheet p {
     margin: 1rem 0 0;
 }
 
+/* nút bấm: lún xuống khi nhấn */
+.btn {
+    display: inline-block;
+    background: var(--pink);
+    color: var(--on-color);
+    border: var(--border);
+    border-radius: 12px;
+    padding: 0.6rem 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--line);
+    transition: transform 0.08s, box-shadow 0.08s;
+}
+
+.btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 var(--line);
+}
+
+.btn.ghost {
+    background: var(--surface);
+    color: var(--ink);
+}
+
+/* ô nhập */
+.input {
+    width: 100%;
+    background: var(--surface);
+    border: var(--border);
+    border-radius: 12px;
+    padding: 0.65rem 0.9rem;
+}
+
+.input::placeholder {
+    color: var(--ink-soft);
+}
+
+/* ô tick tự vẽ */
+.check {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    margin: 0;
+    background: var(--surface);
+    border: 3px solid var(--line);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.15s, transform 0.08s;
+}
+
+.check::after {
+    content: '';
+    width: 0.4rem;
+    height: 0.75rem;
+    margin-top: -0.15rem;
+    border: solid var(--on-color);
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.15s;
+}
+
+.check:checked {
+    background: var(--yellow);
+}
+
+.check:checked::after {
+    transform: rotate(45deg) scale(1);
+}
+
+.check:active {
+    transform: scale(0.88);
+}
+
+/* nút "Xóa" nhỏ */
+.remove {
+    background: none;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 0.2rem 0.55rem;
+    color: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.remove:hover {
+    background: var(--pink);
+    border-color: var(--line);
+    color: var(--on-color);
+}
+
 @media (max-width: 480px) {
     .sheet {
-        --gutter: 2.75rem;
+        padding: 1.15rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
     }
 }

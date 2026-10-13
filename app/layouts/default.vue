@@ -14,15 +14,12 @@
     </main>
   </div>
 </template>
-<style scoped>
-.shell {
-  min-height: 100vh;
-}
 
+<style scoped>
 .topbar,
 .content {
   width: 100%;
-  max-width: 36rem;
+  max-width: 40rem;
   margin: 0 auto;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -30,36 +27,53 @@
 
 .topbar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   padding-top: 1.5rem;
-  padding-bottom: 1.25rem;
+  padding-bottom: 1.5rem;
 }
 
 .content {
-  padding-bottom: 3rem;
+  padding-bottom: 4rem;
 }
 
+/* logo như một miếng dán hơi nghiêng */
 .brand {
-  font-family: "Bricolage Grotesque", "Public Sans", sans-serif;
-  font-size: 1.25rem;
+  background: var(--yellow);
+  color: var(--on-color);
+  border: var(--border);
+  border-radius: 12px;
+  padding: 0.2rem 0.8rem;
+  font-size: 1.2rem;
+  font-weight: 800;
   text-decoration: none;
+  box-shadow: 3px 3px 0 var(--line);
+  transform: rotate(-2deg);
 }
 
 .nav {
   display: flex;
-  gap: 1.25rem;
+  gap: 0.5rem;
 }
 
 .nav a {
-  color: var(--ink-soft);
+  color: var(--ink);
+  font-weight: 600;
   text-decoration: none;
-  border-bottom: 2px solid transparent;
-  padding: 0.25rem 0;
+  border: 3px solid transparent;
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+}
+
+.nav a:hover {
+  border-color: var(--line);
 }
 
 .nav a.router-link-exact-active {
-  color: var(--ink);
-  border-bottom-color: var(--ink);
+  background: var(--pink);
+  color: var(--on-color);
+  border-color: var(--line);
 }
 </style>

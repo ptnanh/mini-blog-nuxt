@@ -15,6 +15,4 @@ export interface Note {
 export type NoteFilter = "all" | "todo" | "done";
 
 // dữ liệu được phép gửi lên khi sửa một ghi chú (tất cả đều không bắt buộc)
-export type NotePatch = Partial<
-  Pick<Note, "text" | "done" | "description" | "tasks">
->;
+export type NotePatch = Partial<Pick<Note, "text" | "done" | "description">>;

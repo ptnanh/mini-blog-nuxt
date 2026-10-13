@@ -1,1 +1,3 @@
-export default defineEventHandler((): Promise<Note[]> => readNotes());
+import { listNotes } from "../../utils/noteRepo";
+
+export default defineEventHandler(() => listNotes());

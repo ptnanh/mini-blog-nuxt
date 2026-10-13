@@ -50,6 +50,7 @@ const visibleNotes = computed(() => {
 </script> -->
 <script setup lang="ts">
 import type { NoteFilter } from "#shared/types/note";
+
 const {
   notes,
   error,
@@ -62,12 +63,20 @@ const {
   clearDone,
 } = useNotes();
 
-// Danh sách tab cố định, không đổi nên không cần ref
 const filters: { key: NoteFilter; label: string }[] = [
   { key: "all", label: "Tất cả" },
   { key: "todo", label: "Chưa xong" },
   { key: "done", label: "Đã xong" },
 ];
+
+const percent = computed(() =>
+  notes.value.length
+    ? Math.round((doneCount.value / notes.value.length) * 100)
+    : 0,
+);
+const allDone = computed(
+  () => notes.value.length > 0 && doneCount.value === notes.value.length,
+);
 
 useSeoMeta({
   title: "Sổ tay của tôi",
@@ -79,7 +88,24 @@ useSeoMeta({
   <article class="sheet">
     <header class="head">
       <h1>Sổ tay của tôi</h1>
-      <p class="progress">{{ doneCount }}/{{ notes.length }} đã xong</p>
+
+      <div class="progress">
+        <div
+          class="bar"
+          role="progressbar"
+          aria-label="Tiến độ hoàn thành"
+          :aria-valuenow="percent"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        >
+          <div class="fill" :style="{ width: percent + '%' }"></div>
+        </div>
+        <p class="progress-text">
+          {{
+            allDone ? "Xong hết rồi!" : `${doneCount}/${notes.length} đã xong`
+          }}
+        </p>
+      </div>
     </header>
 
     <NoteForm @add="addNote" />
@@ -100,11 +126,9 @@ useSeoMeta({
     <p v-if="error" class="empty">
       Không tải được ghi chú. Hãy thử tải lại trang.
     </p>
-
     <p v-else-if="notes.length === 0" class="empty">
       Sổ còn trống. Viết ghi chú đầu tiên ở ô phía trên.
     </p>
-
     <p v-else-if="visibleNotes.length === 0" class="empty">
       Không có ghi chú nào ở mục này.
     </p>
@@ -120,70 +144,85 @@ useSeoMeta({
     </ul>
 
     <footer v-if="doneCount > 0" class="foot">
-      <button class="clear" @click="clearDone">Xóa các mục đã xong</button>
+      <button class="btn ghost" @click="clearDone">Xóa các mục đã xong</button>
     </footer>
   </article>
 </template>
+
 <style scoped>
 .head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
 .progress {
-  margin: 0;
+  margin-top: 1rem;
+}
+
+.bar {
+  height: 1.1rem;
+  background: var(--surface);
+  border: 3px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: var(--mint);
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  margin: 0.5rem 0 0;
   color: var(--ink-soft);
   font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .tabs {
-  display: flex;
-  gap: 1.25rem;
-  margin-top: 1.25rem;
+  display: inline-flex;
+  max-width: 100%;
+  gap: 0.25rem;
+  margin: 1.5rem 0 1rem;
+  padding: 0.25rem;
+  background: var(--surface);
+  border: var(--border);
+  border-radius: 999px;
 }
 
 .tab {
   background: none;
   border: 0;
-  border-bottom: 2px solid transparent;
-  padding: 0.4rem 0;
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
   color: var(--ink-soft);
+  font-weight: 600;
   cursor: pointer;
 }
 
 .tab.active {
-  color: var(--ink);
-  border-bottom-color: var(--ink);
+  background: var(--violet);
+  color: var(--on-violet);
 }
 
 .empty {
-  margin: 1.5rem 0;
+  margin: 0;
+  padding: 1.25rem;
+  text-align: center;
   color: var(--ink-soft);
+  border: 3px dashed var(--line);
+  border-radius: 14px;
 }
 
 .list {
   list-style: none;
-  margin: 0.5rem 0 0;
+  margin: 0;
   padding: 0;
+  display: grid;
+  gap: 0.75rem;
 }
 
 .foot {
-  margin-top: 1rem;
-}
-
-.clear {
-  background: none;
-  border: 0;
-  padding: 0;
-  color: var(--ink-soft);
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.clear:hover {
-  color: var(--ink);
+  margin-top: 1.5rem;
 }
 </style>

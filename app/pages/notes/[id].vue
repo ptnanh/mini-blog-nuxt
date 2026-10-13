@@ -139,15 +139,21 @@ async function remove() {
 }
 
 h2 {
-  margin: 0 0 0.5rem;
-  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
 }
 
 .count {
-  margin-left: 0.4rem;
-  color: var(--ink-soft);
-  font-size: 0.85rem;
-  font-weight: 400;
+  background: var(--yellow);
+  color: var(--on-color);
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  padding: 0 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
 .muted {
@@ -156,12 +162,10 @@ h2 {
 
 .area {
   width: 100%;
-  font: inherit;
-  color: inherit;
-  background: transparent;
-  border: 1px solid var(--rule);
-  border-radius: 6px;
-  padding: 0.6rem 0.75rem;
+  background: var(--surface);
+  border: var(--border);
+  border-radius: 12px;
+  padding: 0.7rem 0.9rem;
   resize: vertical;
 }
 
@@ -169,22 +173,24 @@ h2 {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: grid;
+  gap: 0.6rem;
 }
 
 .task {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid var(--rule);
+  gap: 0.8rem;
+  background: var(--surface);
+  border: 2.5px solid var(--line);
+  border-radius: 12px;
+  padding: 0.6rem 0.8rem;
+  transition: background-color 0.2s;
 }
 
-.check {
-  width: 1.15rem;
-  height: 1.15rem;
-  margin: 0;
-  accent-color: var(--ink);
-  cursor: pointer;
+.task:has(.check:checked) {
+  background: var(--mint);
+  color: var(--on-color);
 }
 
 .task-text {
@@ -194,71 +200,25 @@ h2 {
 }
 
 .task-text.done {
-  color: var(--ink-soft);
   text-decoration: line-through;
-}
-
-.remove {
-  background: none;
-  border: 0;
-  padding: 0.25rem 0.5rem;
-  color: var(--ink-soft);
-  cursor: pointer;
-}
-
-.remove:hover {
-  color: var(--ink);
+  text-decoration-thickness: 2px;
 }
 
 .add-task {
   display: flex;
-  align-items: flex-end;
   gap: 0.75rem;
   margin-top: 1rem;
 }
 
-.input {
+.add-task .input {
   flex: 1;
   min-width: 0;
-  background: transparent;
-  border: 0;
-  border-bottom: 2px solid var(--ink);
-  padding: 0.6rem 0;
-}
-
-.input::placeholder {
-  color: var(--ink-soft);
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.9rem;
   margin-top: 2rem;
-}
-
-.btn {
-  background: var(--ink);
-  color: var(--on-ink);
-  border: 0;
-  border-radius: 6px;
-  padding: 0.6rem 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background: var(--ink-hover);
-}
-
-.btn.ghost {
-  background: transparent;
-  color: var(--ink);
-  border: 1px solid var(--rule);
-}
-
-.btn.ghost:hover {
-  background: transparent;
-  border-color: var(--ink);
 }
 </style>

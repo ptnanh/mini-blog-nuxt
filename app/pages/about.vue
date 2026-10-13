@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // Đặt tiêu đề tab trình duyệt riêng cho trang này
 useHead({ title: "Giới thiệu" });
 </script>

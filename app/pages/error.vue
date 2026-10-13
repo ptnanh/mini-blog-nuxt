@@ -1,7 +1,6 @@
-<script setup>
-const props = defineProps({
-  error: { type: Object, required: true },
-});
+<script setup lang="ts">
+import type { NuxtError } from "#app";
+const props = defineProps<{ error: NuxtError }>();
 
 const isNotFound = computed(() => props.error.statusCode === 404);
 

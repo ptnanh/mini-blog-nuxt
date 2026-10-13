@@ -1,11 +1,12 @@
-<script setup lang="js">
+<script setup lang="ts">
+import type { Note } from "#shared/types/note";
 // defineProps khai báo dữ liệu nhận từ cha. trong template dùng trực tiếp (note.text)
-const props = defineProps({
-  note: { type: Object, required: true },
-});
-
+const props = defineProps<{ note: Note }>();
 // defineEmits: khai báo sự kiện gửi lên cha. Cha lắng nghe bằng @add, @remove, @toggle
-const emit = defineEmits(["remove", "toggle"]);
+const emit = defineEmits<{
+  remove: [id: number];
+  toggle: [id: number];
+}>();
 
 // số mục con đã xong, tự tính lại khi tick
 const doneTasks = computed(() => props.note.tasks.filter((t) => t.done).length);

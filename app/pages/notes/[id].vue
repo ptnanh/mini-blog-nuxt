@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const route = useRoute();
 const {
   getNote,
@@ -36,12 +36,14 @@ useSeoMeta({
 });
 
 function saveDescription() {
+  if (!note.value) return;
   if (description.value !== note.value.description) {
     updateNote(note.value.id, { description: description.value });
   }
 }
 
 function submitTask() {
+  if (!note.value) return;
   const text = newTask.value.trim();
   if (!text) return;
   addTask(note.value.id, text);
@@ -49,6 +51,7 @@ function submitTask() {
 }
 
 async function remove() {
+  if (!note.value) return;
   await removeNote(note.value.id);
   await navigateTo("/");
 }

@@ -1,0 +1,101 @@
+:root {
+    color-scheme: light dark;
+
+    --paper: #f3f6fa;
+    --sheet: #ffffff;
+    --ink: #17233b;
+    --ink-soft: #5a6882;
+    --rule: #d5dee9;
+    --margin: #8fb3f0;
+    --highlight: #ffe066;
+    --focus: #2f6bff;
+
+    /* màu đặt lên trên các nền ở trên */
+    --on-ink: #ffffff;
+    --ink-hover: #2a3b5c;
+    --on-highlight: #17233b;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Public Sans', system-ui, sans-serif;
+    line-height: 1.5;
+}
+
+button,
+input {
+    font: inherit;
+    color: inherit;
+}
+
+:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --paper: #0e1524;
+        --sheet: #172036;
+        --ink: #e8edf7;
+        --ink-soft: #9aa7c0;
+        --rule: #2a3552;
+        --margin: #3f64a8;
+        --focus: #7aa2ff;
+
+        --on-ink: #0e1524;
+        --ink-hover: #cdd6ea;
+        /* --highlight và --on-highlight giữ nguyên: vệt dạ quang vàng, chữ tối */
+    }
+}
+
+a {
+    color: var(--ink);
+}
+
+h1 {
+    margin: 0;
+    font-family: 'Bricolage Grotesque', 'Public Sans', sans-serif;
+    font-size: 2rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+/* "tờ giấy" dùng chung cho nhiều trang */
+.sheet {
+    --gutter: 3.5rem;
+    position: relative;
+    width: 100%;
+    background: var(--sheet);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 2rem 1.5rem 1.5rem var(--gutter);
+}
+
+.sheet::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--gutter) - 1rem);
+    width: 2px;
+    background: var(--margin);
+}
+
+.sheet p {
+    margin: 1rem 0 0;
+}
+
+@media (max-width: 480px) {
+    .sheet {
+        --gutter: 2.75rem;
+    }
+}

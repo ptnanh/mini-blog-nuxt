@@ -48,7 +48,8 @@ const visibleNotes = computed(() => {
   return notes.value;
 });
 </script> -->
-<script setup>
+<script setup lang="ts">
+import type { NoteFilter } from "#shared/types/note";
 const {
   notes,
   error,
@@ -62,7 +63,7 @@ const {
 } = useNotes();
 
 // Danh sách tab cố định, không đổi nên không cần ref
-const filters = [
+const filters: { key: NoteFilter; label: string }[] = [
   { key: "all", label: "Tất cả" },
   { key: "todo", label: "Chưa xong" },
   { key: "done", label: "Đã xong" },

@@ -1,5 +1,5 @@
-<script setup lang="js">
-const emit = defineEmits(["add"]);
+<script setup lang="ts">
+const emit = defineEmits<{ add: [text: string] }>();
 
 const text = ref("");
 

@@ -31,8 +31,8 @@ Before running the project, make sure you have installed:
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repository-url>
-cd <your-project-folder>
+git clone https://github.com/ptnanh/mini-blog-nuxt.git
+cd mini-blog-nuxt
 ```
 
 ### 2. Install dependencies

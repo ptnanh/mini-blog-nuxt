@@ -1,9 +1,8 @@
 import "dotenv/config";
-import { readFile } from "node:fs/promises";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import type { Note } from "../../shared/types/note";
 import { notes, tasks } from "./schema";
+import { seedNotes } from "./seed-data";
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 const db = drizzle({ client: pool });
@@ -15,7 +14,7 @@ async function main() {
     return;
   }
 
-  const data: Note[] = JSON.parse(await readFile("data/notes.json", "utf-8"));
+  const data = seedNotes;
 
   // transaction: hoặc tất cả cùng thành công, hoặc không gì được ghi
   await db.transaction(async (tx) => {

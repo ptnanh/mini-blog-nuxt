@@ -1,4 +1,6 @@
-import type { Note } from "#shared/types/note";
+import { notes } from "../../database/schema";
+import { useDb } from "../../utils/db";
+import { toNote } from "../../utils/noteRepo";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody<{ text?: unknown } | null>(event);
@@ -8,13 +10,11 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: "Thiếu nội dung ghi chú" });
   }
 
-  const notes = await readNotes();
-  const id = notes.reduce((max, n) => Math.max(max, n.id), 0) + 1;
-  const note: Note = { id, text, done: false, description: "", tasks: [] };
-
-  notes.push(note);
-  await writeNotes(notes);
+  const [row] = await useDb().insert(notes).values({ text }).returning();
+  if (!row) {
+    throw createError({ statusCode: 500, message: "Không tạo được ghi chú" });
+  }
 
   setResponseStatus(event, 201);
-  return note;
+  return toNote(row, []);
 });

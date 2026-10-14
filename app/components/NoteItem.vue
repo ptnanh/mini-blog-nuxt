@@ -29,11 +29,9 @@ const doneTasks = computed(() => props.note.tasks.filter((t) => t.done).length);
         {{ note.text }}
       </NuxtLink>
     </div>
-
     <span v-if="note.tasks.length" class="count">
       {{ doneTasks }}/{{ note.tasks.length }}
     </span>
-
     <button class="remove" @click="emit('remove', note.id)">Xóa</button>
   </li>
 </template>
@@ -43,74 +41,49 @@ const doneTasks = computed(() => props.note.tasks.filter((t) => t.done).length);
   display: flex;
   align-items: center;
   gap: 0.85rem;
-  padding: 0.7rem 0;
-  border-bottom: 1px solid var(--rule);
+  background: var(--surface);
+  border: 3px solid var(--line);
+  border-radius: 14px;
+  padding: 0.7rem 0.9rem;
+  box-shadow: 3px 3px 0 var(--line);
+  transition: background-color 0.2s;
 }
 
-.check {
-  width: 1.25rem;
-  height: 1.25rem;
-  margin: 0;
-  accent-color: var(--ink);
-  cursor: pointer;
+/* mục đã xong: nền xanh bạc hà */
+.item:has(.check:checked) {
+  background: var(--mint);
+  color: var(--on-color);
 }
 
 .text {
   flex: 1;
   min-width: 0;
+  font-weight: 500;
   overflow-wrap: anywhere;
 }
 
-/* bút dạ quang: vệt vàng quét từ trái sang phải khi tick */
 .label {
-  padding: 0.25em 0.5em;
-  margin: 0 -0.25em;
-  border-radius: 10px;
-
-  background-image: linear-gradient(var(--highlight), var(--highlight));
-  background-repeat: no-repeat;
-  background-position: 0 50%;
-  background-size: 0% 75%;
-
-  transition: background-size 0.25s ease;
-
-  /* nếu ghi chú dài xuống nhiều dòng, mỗi dòng đều có vệt riêng */
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  text-decoration: none;
   color: inherit;
-  line-height: 1.2;
+  text-decoration: none;
 }
 
 .label:hover {
   text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 
 .label.done {
-  background-size: 100% 75%;
-  color: var(--on-highlight);
-}
-
-.remove {
-  background: none;
-  border: 0;
-  padding: 0.25rem 0.5rem;
-  color: var(--ink-soft);
-  cursor: pointer;
-}
-
-.remove:hover {
-  color: var(--ink);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .label {
-    transition: none;
-  }
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
 }
 
 .count {
-  color: var(--ink-soft);
-  font-size: 0.85rem;
+  background: var(--yellow);
+  color: var(--on-color);
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  padding: 0 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 </style>

@@ -32,18 +32,4 @@ function goHome() {
   margin: 3rem auto;
   padding: 0 1rem;
 }
-
-.btn {
-  background: var(--ink);
-  color: var(--on-ink);
-  border: 0;
-  border-radius: 6px;
-  padding: 0.6rem 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background: var(--ink-hover);
-}
 </style>

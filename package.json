@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@nuxt/content": "^3.16.0",
-    "better-sqlite3": "^13.0.3",
     "drizzle-orm": "^0.45.4",
     "nuxt": "^4.5.2",
     "pg": "^8.23.1",

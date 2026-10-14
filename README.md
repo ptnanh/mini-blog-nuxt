@@ -1,75 +1,38 @@
-# Nuxt Content Starter
+# Mini Notes
 
-Look at the [Nuxt Content documentation](https://content.nuxt.com) to learn more.
+A full-stack notes app with sub-tasks, built to practice Nuxt 4, TypeScript and PostgreSQL.
 
-## Setup
+## Tech stack
 
-Make sure to install dependencies:
+- Nuxt 4, Vue 3 (Composition API), TypeScript
+- Nitro server routes (REST API)
+- PostgreSQL with Drizzle ORM (schema and migrations)
+- Docker Compose for the local database
+
+## Features
+
+- Create, edit, complete and delete notes
+- Add sub-tasks to each note and track progress
+- Filter by all, to do or done
+- Detail page for each note
+- Responsive UI with light and dark mode
+
+## Run locally
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
+cp .env.example .env
+docker compose up -d
+npm run db:migrate
+npm run db:seed
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+Then open http://localhost:3000.
 
-Build the application for production:
+## Project structure
 
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- `app/` pages, layouts, components, composables
+- `server/api/` REST endpoints
+- `server/database/` schema and migrations
+- `shared/types/` types shared by the app and the server
